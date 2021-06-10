@@ -1,7 +1,7 @@
-import logo from './logo.svg';
-
 import { forwardRef } from 'react';
 import { useImage } from './use-image';
+
+import placeholderLogo from './placeholder.svg';
 
 /*
 supported props
@@ -22,7 +22,7 @@ sizes
 */
 const Image = forwardRef((props, ref) => {
   const {
-    placeholderSrc = logo,
+    placeholderSrc = placeholderLogo,
     placeholder,
     src,
     loading,

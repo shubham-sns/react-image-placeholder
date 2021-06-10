@@ -1,4 +1,10 @@
-import { useState, useEffect, useCallback, useLayoutEffect } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 
 function useImage({
   src,
