@@ -1,11 +1,4 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  forwardRef,
-  useLayoutEffect,
-} from 'react';
+import { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 
 function useImage({
   src,
@@ -85,47 +78,4 @@ function useImage({
   return ignorePlaceholder ? 'loaded' : status;
 }
 
-/*
-supported props
------------------
-src: main image
-placeholder : element,
-placeholderSrc : image
-ignorePlaceholder : boolean to toggle placeholder support on and off
-ref :)
-
--- normal image attributes--
-onLoad,
-onError,
-crossOrigin
-srcSet
-loading
-sizes
-*/
-export const Image = forwardRef((props, ref) => {
-  const {
-    placeholderSrc,
-    placeholder,
-    src,
-    loading,
-    ignorePlaceholder,
-    ...rest
-  } = props;
-  const shared = { ref, ...rest };
-
-  const shouldIgnore = ignorePlaceholder;
-
-  const status = useImage({ ...props, ignorePlaceholder: shouldIgnore });
-
-  // currently works for both while loading and if main src fails
-  if (status !== 'loaded') {
-    // react element
-    if (placeholder) return placeholder;
-
-    return <img src={placeholderSrc} {...shared} />;
-  }
-
-  return <img src={src} {...shared} />;
-});
-
-export default Image;
+export { useImage };
