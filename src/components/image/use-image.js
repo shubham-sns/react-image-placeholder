@@ -6,17 +6,22 @@ import {
   useLayoutEffect,
 } from 'react';
 
+/**
+ *  React hook that loads image and let us
+ * know the status sow we can show placeholders/fallback
+ *
+ * @returns current status of image loading process
+ */
 function useImage({
   src,
   srcSet,
-  loading,
   sizes,
   onLoad,
   onError,
   crossOrigin,
   ignorePlaceholder,
 }) {
-  const [status, setStatus] = useState('pending'); // pending | loading | loaded | failed
+  const [status, setStatus] = useState('pending');
 
   useEffect(() => {
     setStatus(src ? 'loading' : 'pending');
@@ -44,11 +49,7 @@ function useImage({
     }
 
     if (srcSet) {
-      img.srcset = srcSet;
-    }
-
-    if (loading) {
-      img.loading = loading;
+      img.srcSet = srcSet;
     }
 
     if (sizes) {
@@ -68,10 +69,11 @@ function useImage({
     };
 
     imageRef.current = img;
-  }, [src, crossOrigin, srcSet, loading, sizes, onLoad, onError]);
+  }, [src, crossOrigin, srcSet, sizes, onLoad, onError]);
 
   // we want this effect to run synchronously before UI gets painted as we are working with dom api
   useLayoutEffect(() => {
+    // if user is does not want to use placeholder : return early
     if (ignorePlaceholder) return;
 
     if (status === 'loading') {
