@@ -6,6 +6,12 @@ import {
   useLayoutEffect,
 } from 'react';
 
+/**
+ * Hook which loads image and let us know the status
+ * so we can show placeholder/fallback
+ *
+ * @returns status if image loading process
+ */
 function useImage({
   src,
   srcSet,
@@ -47,10 +53,6 @@ function useImage({
       img.srcset = srcSet;
     }
 
-    if (loading) {
-      img.loading = loading;
-    }
-
     if (sizes) {
       img.sizes = sizes;
     }
@@ -68,7 +70,7 @@ function useImage({
     };
 
     imageRef.current = img;
-  }, [src, crossOrigin, srcSet, loading, sizes, onLoad, onError]);
+  }, [src, crossOrigin, srcSet, sizes, onLoad, onError]);
 
   // we want this effect to run synchronously before UI gets painted as we are working with dom api
   useLayoutEffect(() => {

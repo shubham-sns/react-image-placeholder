@@ -3,23 +3,10 @@ import { useImage } from './use-image';
 
 import placeholderLogo from './placeholder.svg';
 
-/*
-supported props
------------------
-src: main image
-placeholder : element,
-placeholderSrc : image
-ignorePlaceholder : boolean to toggle placeholder support on and off
-ref :)
-
--- normal image attributes--
-onLoad,
-onError,
-crossOrigin
-srcSet
-loading
-sizes
-*/
+/**
+ * React Component for images which shows
+ * placeholder while iamge is loading
+ */
 const Image = forwardRef((props, ref) => {
   const {
     placeholderSrc = placeholderLogo,
@@ -31,7 +18,7 @@ const Image = forwardRef((props, ref) => {
   } = props;
   const shared = { ref, ...rest };
 
-  const shouldIgnore = ignorePlaceholder;
+  const shouldIgnore = loading || ignorePlaceholder;
 
   const status = useImage({ ...props, ignorePlaceholder: shouldIgnore });
 
