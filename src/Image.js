@@ -1,17 +1,23 @@
-import { useState, useEffect, useRef, useCallback, forwardRef } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  forwardRef,
+  useLayoutEffect,
+} from 'react';
 
 function useImage({
   src,
   srcSet,
+  loading,
+  sizes,
   onLoad,
   onError,
   crossOrigin,
   ignorePlaceholder,
 }) {
-  // no source === pending
-  // loading source === loading
-  // loaded source === loaded
-  const [status, setStatus] = useState('pending');
+  const [status, setStatus] = useState('pending'); // pending | loading | loaded | failed
 
   useEffect(() => {
     setStatus(src ? 'loading' : 'pending');
@@ -42,22 +48,31 @@ function useImage({
       img.srcset = srcSet;
     }
 
+    if (loading) {
+      img.loading = loading;
+    }
+
+    if (sizes) {
+      img.sizes = sizes;
+    }
+
     img.onload = (event) => {
       flush();
       setStatus('loaded');
-      onLoad?.();
+      onLoad?.(event);
     };
 
     img.onerror = (error) => {
       flush();
       setStatus('failed');
-      onError?.();
+      onError?.(error);
     };
 
     imageRef.current = img;
-  }, [src, crossOrigin, srcSet, onLoad, onError]);
+  }, [src, crossOrigin, srcSet, loading, sizes, onLoad, onError]);
 
-  useEffect(() => {
+  // we want this effect to run synchronously before UI gets painted as we are working with dom api
+  useLayoutEffect(() => {
     if (ignorePlaceholder) return;
 
     if (status === 'loading') {
@@ -79,18 +94,28 @@ placeholderSrc : image
 ignorePlaceholder : boolean to toggle placeholder support on and off
 ref :)
 
--- normal image props--
+-- normal image attributes--
 onLoad,
 onError,
 crossOrigin
 srcSet
-
+loading
+sizes
 */
 export const Image = forwardRef((props, ref) => {
-  const { placeholderSrc, placeholder, src, ...rest } = props;
+  const {
+    placeholderSrc,
+    placeholder,
+    src,
+    loading,
+    ignorePlaceholder,
+    ...rest
+  } = props;
   const shared = { ref, ...rest };
 
-  const status = useImage({ ...props });
+  const shouldIgnore = ignorePlaceholder;
+
+  const status = useImage({ ...props, ignorePlaceholder: shouldIgnore });
 
   // currently works for both while loading and if main src fails
   if (status !== 'loaded') {
