@@ -20,7 +20,7 @@ const Image = forwardRef((props, ref) => {
     placeholderSrc,
     placeholder,
     placeholderColor = 'gray',
-    ignorePlaceholder,
+    ignorePlaceholder = false,
 
     src,
     loading,

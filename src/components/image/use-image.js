@@ -21,15 +21,15 @@ function useImage({
   crossOrigin,
   ignorePlaceholder,
 } = {}) {
-  const [status, setStatus] = useState('pending'); //possible states: pending | loading | loaded | failed
+  const [status, setStatus] = useState('idle');
 
   const isError = status === 'failed';
   const isLoading = status === 'loading';
-  const isIdle = status === 'pending';
+  const isIdle = status === 'idle';
   const isLoaded = status === 'loaded';
 
   useEffect(() => {
-    setStatus(src ? 'loading' : 'pending');
+    setStatus(src ? 'loading' : 'idle');
   }, [src]);
 
   const imageRef = useRef();

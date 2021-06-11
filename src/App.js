@@ -8,7 +8,13 @@ function App() {
     <div className="App">
       <img src={src} alt="logo" width="200" />
 
-      <Image src={src} height="200" width="200" />
+      <Image
+        style={{ borderRadius: '50%' }}
+        src={src}
+        height="200"
+        width="200"
+        placeholderColor="#FFA7C4"
+      />
     </div>
   );
 }
