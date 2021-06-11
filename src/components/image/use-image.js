@@ -61,13 +61,13 @@ function useImage({
       img.sizes = sizes;
     }
 
-    img.onload = (event) => {
+    img.onLoad = (event) => {
       flush();
       setStatus('loaded');
       onLoad?.(event);
     };
 
-    img.onerror = (error) => {
+    img.onError = (error) => {
       flush();
       setStatus('failed');
       onError?.(error);
