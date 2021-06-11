@@ -15,13 +15,12 @@ import {
 function useImage({
   src,
   srcSet,
-  loading,
   sizes,
   onLoad,
   onError,
   crossOrigin,
   ignorePlaceholder,
-}) {
+} = {}) {
   const [status, setStatus] = useState('pending'); // pending | loading | loaded | failed
 
   useEffect(() => {
