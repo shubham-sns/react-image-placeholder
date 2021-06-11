@@ -8,8 +8,6 @@ you can use the `Image` component or create your own custom component with `useI
 
 ## Image Component
 
-> ### if `src` is not provided then **it wouldn't render anything.**
-
 ### Default Placeholder Support
 
 - Every image would show a default placeholder when you use `Image` component.
