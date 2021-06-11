@@ -1,10 +1,10 @@
 # Dependencies
 
-There are no external dependencies, aside for a version of react and react-dom which support hooks
+There are no external dependencies, aside for a version of react and react-dom which support hooks.
 
 # Documentation
 
-you can use the `Image` component or create your own with `useImage()`
+you can use the `Image` component or create your own with `useImage()`.
 
 ## useImage() :
 
@@ -14,8 +14,8 @@ The useImage hook allows users to get `react-image-placeholder` logic in any ima
 
 takes object as argument with
 
-- src (required): source of image for which you want loading states, if src is not passed it would return
-- ignorePlaceholder (optional): `Boolean`. if true ignores placeholder logic and always returs 'loaded'.
+- src (required): source of image for which you want loading states, if src is not passed it would return`pending`.
+- ignorePlaceholder (optional): `Boolean`. if true ignores placeholder logic and always returns 'loaded' status.
 
 ### returns:
 
@@ -43,8 +43,8 @@ function CustomImage() {
 
 ### Default Placeholder Support
 
-- Every image would show a default placeholder when you use `Image` component
-- current default placeholder is react logo
+- Every image would show a default placeholder when you use `Image` component.
+- current default placeholder is react logo.
 
 Example usage
 
@@ -108,7 +108,7 @@ function LoadImage() {
 
 ---
 
-if true ignore placeholder logic and shows `img`
+if true component ignores placeholder logic and shows `img`.
 
 - default: `false`
 - type: Boolean
@@ -133,7 +133,7 @@ function LoadImage() {
 
 ---
 
-A callback for when the image src has been loaded
+A callback for when the image `src` has been loaded.
 
 - type: `Function`
 
@@ -143,7 +143,7 @@ A callback for when the image src has been loaded
 
 ---
 
-A callback for when there was an error loading the image src
+A callback for when there was an error loading the image `src`.
 
 - type: `Function`
 
