@@ -10,7 +10,7 @@ import {
  * Hook which loads image and let us know the status
  * so we can show placeholder/fallback
  *
- * @returns status if image loading process
+ * @returns status fro image loading process
  */
 function useImage({
   src,
@@ -21,7 +21,12 @@ function useImage({
   crossOrigin,
   ignorePlaceholder,
 } = {}) {
-  const [status, setStatus] = useState('pending'); // pending | loading | loaded | failed
+  const [status, setStatus] = useState('pending'); //possible states: pending | loading | loaded | failed
+
+  const isError = status === 'failed';
+  const isLoading = status === 'loading';
+  const isIdle = status === 'pending';
+  const isLoaded = status === 'loaded';
 
   useEffect(() => {
     setStatus(src ? 'loading' : 'pending');
@@ -82,7 +87,13 @@ function useImage({
     return flush;
   }, [status, load, ignorePlaceholder]);
 
-  return ignorePlaceholder ? 'loaded' : status;
+  return {
+    status: ignorePlaceholder ? 'loaded' : status,
+    isError,
+    isIdle,
+    isLoading,
+    isLoaded,
+  };
 }
 
 export { useImage };
