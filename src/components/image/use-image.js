@@ -21,8 +21,12 @@ function useImage({ src, srcSet, sizes, crossOrigin, ignorePlaceholder } = {}) {
   const isLoaded = status === 'loaded';
 
   useEffect(() => {
+    if (ignorePlaceholder) {
+      return setStatus('loaded');
+    }
+
     setStatus(src ? 'loading' : 'idle');
-  }, [src]);
+  }, [ignorePlaceholder, src]);
 
   const imageRef = useRef();
 

@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import * as React from 'react';
 import { useImage } from './use-image';
 
 function getInt(x) {
@@ -15,7 +15,7 @@ function getInt(x) {
  * React Component for images which shows
  * placeholder while image is loading
  */
-const Image = forwardRef((props, ref) => {
+const Image = React.forwardRef((props, ref) => {
   const {
     placeholderSrc,
     placeholder,
@@ -26,6 +26,7 @@ const Image = forwardRef((props, ref) => {
 
     src,
     loading,
+    crossOrigin,
     height,
     width,
     ...rest
@@ -83,7 +84,16 @@ const Image = forwardRef((props, ref) => {
   }
 
   // shows up after loading of `src`
-  return <img src={src} onLoad={onLoad} onError={onError} {...shared} />;
+  return (
+    <img
+      src={src}
+      loading={loading}
+      crossOrigin={crossOrigin}
+      onLoad={onLoad}
+      onError={onError}
+      {...shared}
+    />
+  );
 });
 
 export { Image };
