@@ -9,17 +9,10 @@ function App() {
       {/* <img src={src} alt="logo" width="200" /> */}
 
       <Image
+        style={{ borderRadius: '50%' }}
         src={src}
         height="200"
         width="200"
-        placeholderSrc="https://via.placeholder.com/150"
-        onError={(e) => {
-          console.log('error');
-        }}
-        onLoad={(e) => {
-          console.log(e);
-          console.log('hello 1');
-        }}
       />
     </div>
   );

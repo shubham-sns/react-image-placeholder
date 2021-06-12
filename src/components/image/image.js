@@ -21,6 +21,8 @@ const Image = forwardRef((props, ref) => {
     placeholder,
     placeholderColor = 'gray',
     ignorePlaceholder = false,
+    onLoad,
+    onError,
 
     src,
     loading,
@@ -57,29 +59,31 @@ const Image = forwardRef((props, ref) => {
     }
   }
 
-  // conditions for: `src` loading and if `src` fails
+  // conditions for, `src` loading and if `src` fails
   if (!isLoaded) {
     if (placeholderSrc) return <img src={placeholderSrc} {...shared} />;
 
     // react element
-    if (placeholder) {
-      return placeholder;
-    }
+    if (placeholder) return placeholder;
 
     // default placeholder if source and element is not provided
+    // if styles are there in shared it can override
+    const { style = {} } = shared;
     return (
       <div
+        {...shared}
         style={{
-          background: placeholderColor,
           height: `${intHeight}px`,
           width: `${intWidth}px`,
+          background: placeholderColor,
+          ...style,
         }}
       ></div>
     );
   }
 
   // shows up after loading of `src`
-  return <img src={src} {...shared} />;
+  return <img src={src} onLoad={onLoad} onError={onError} {...shared} />;
 });
 
 export { Image };

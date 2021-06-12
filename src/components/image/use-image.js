@@ -12,15 +12,7 @@ import {
  *
  * @returns status fro image loading process
  */
-function useImage({
-  src,
-  srcSet,
-  sizes,
-  onLoad,
-  onError,
-  crossOrigin,
-  ignorePlaceholder,
-} = {}) {
+function useImage({ src, srcSet, sizes, crossOrigin, ignorePlaceholder } = {}) {
   const [status, setStatus] = useState('idle');
 
   const isError = status === 'failed';
@@ -61,20 +53,18 @@ function useImage({
       img.sizes = sizes;
     }
 
-    img.onLoad = (event) => {
+    img.onload = () => {
       flush();
       setStatus('loaded');
-      onLoad?.(event);
     };
 
-    img.onError = (error) => {
+    img.onerror = () => {
       flush();
       setStatus('failed');
-      onError?.(error);
     };
 
     imageRef.current = img;
-  }, [src, crossOrigin, srcSet, sizes, onLoad, onError]);
+  }, [src, crossOrigin, srcSet, sizes]);
 
   // we want this effect to run synchronously before UI gets painted as we are working with dom api
   useLayoutEffect(() => {
